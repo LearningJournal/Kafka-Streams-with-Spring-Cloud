@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        input-channel-1:
+          destination: users
+      kafka:
+        streams:
+          binder:
+            applicationId: hellostreams
+            brokers:  localhost:9092
+            configuration:
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde

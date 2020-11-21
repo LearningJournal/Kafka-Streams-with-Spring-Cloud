@@ -1,0 +1,5 @@
+
+
+{"name": "Kristie Cole", "age": 34,"gender": "female"}
+
+{"name": "Marsh Mccall", "age": 28, "gender": "male"}
