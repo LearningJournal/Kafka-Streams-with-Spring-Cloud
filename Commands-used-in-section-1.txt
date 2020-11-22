@@ -1,0 +1,56 @@
+Link for Steps to Install WSL
+-----------------------------------
+	https://docs.microsoft.com/en-us/windows/wsl/install-win10
+	
+Check your JDK installation on Ubuntu
+----------------------------------------
+	javac -version
+		
+Installing JDK on Ubuntu
+-----------------------------
+	sudo apt-get update
+	sudo apt install default-jdk
+	
+Configure your Windows terminal
+---------------------------------
+	"startingDirectory": "\\\\wsl$\\Ubuntu-20.04\\home\\prashant"
+	
+Copy your downloaded file to your Ubuntu home directory
+-----------------------------------------------------------
+	cp /mnt/e/demo/confluent-6.0.0.tar.gz .
+	
+Copy your downloaded file to your Mac home directory
+-----------------------------------------------------------	
+	cp ~/Downloads/confluent-6.0.0.tar ~
+	
+Untar the downloaded file
+----------------------------
+	tar -zxvf confluent-6.0.0.tar.gz
+	
+Setting the environment variables on windows.
+-------------------------------------------------
+	export CONFLUENT_HOME=/home/prashant/confluent-6.0.0
+	export PATH=$PATH:$CONFLUENT_HOME/bin
+	
+Setting the environment variable on Mac.
+------------------------------------------	
+	export CONFLUENT_HOME=/Users/prashant/confluent-6.0.0
+	export PATH=$PATH:$CONFLUENT_HOME/bin
+	
+Running Confluent services
+----------------------------
+	confluent local services start
+	confluent local services stop
+	confluent local destroy
+	
+Kafka Commands
+-----------------
+	kafka-console-producer --topic test-topic --broker-list localhost:9092 
+	kafka-console-consumer --topic test-topic --bootstrap-server localhost:9092 --from-beginning
+	
+Sample Data
+--------------
+	{"name": "Kristie Cole", "age": 34,"gender": "female"}
+	{"name": "Marsh Mccall", "age": 28, "gender": "male"}
+	
+	
