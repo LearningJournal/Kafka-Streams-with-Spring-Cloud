@@ -1,0 +1,12 @@
+spring:
+  kafka:
+    producer:
+      client-id: json-pos-simulator
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+application:
+  configs:
+    invoice.count: 60
+    topic:
+      name: pos-topic
