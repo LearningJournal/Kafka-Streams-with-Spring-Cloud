@@ -1,0 +1,31 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        notification-input-channel:
+          destination: pos-topic
+        notification-output-channel:
+          destination: loyalty-topic
+        hadoop-input-channel:
+          destination: pos-topic
+        hadoop-output-channel:
+          destination: hadoop-sink-topic
+      kafka:
+        streams:
+          binder:
+            brokers:  localhost:9092
+            configuration:
+                schema.registry.url: http://localhost:8081
+          bindings:
+            notification-input-channel:
+              consumer:
+                applicationId: pos-fanout-notification-processor
+            notification-output-channel:
+              producer:
+                valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
+            hadoop-input-channel:
+              consumer:
+                applicationId: pos-fanout-hadoop-processor
+            hadoop-output-channel:
+              producer:
+                valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
