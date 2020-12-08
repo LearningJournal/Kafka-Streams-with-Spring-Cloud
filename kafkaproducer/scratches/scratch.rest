@@ -1,0 +1,7 @@
+POST
+http://localhost:8080/post
+@Content-type: application/json
+{"topic":"users", "key":"101", "value":"Prashant Kumar Pandey"}
+
+
+
