@@ -48,7 +48,7 @@ class ProductGenerator {
         return qty.nextInt(2) + 1;
     }
 
-    LineItem getNextProduct() {
+    public LineItem getNextProduct() {
         LineItem lineItem = products[getIndex()];
         lineItem.setItemQty(getQuantity());
         lineItem.setTotalValue(lineItem.getItemPrice() * lineItem.getItemQty());

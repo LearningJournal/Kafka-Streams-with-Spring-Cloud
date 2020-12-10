@@ -18,6 +18,7 @@ public class JsonPosGeneratorApplication implements ApplicationRunner {
         SpringApplication.run(JsonPosGeneratorApplication.class, args);
     }
 
+
     @Autowired
     private KafkaProducerService producerService;
 
