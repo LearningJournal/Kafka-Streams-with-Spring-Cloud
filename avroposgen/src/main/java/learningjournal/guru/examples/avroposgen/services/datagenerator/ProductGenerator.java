@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package guru.learningjournal.kafka.examples.avroposgen.services.datagenerator;
+package learningjournal.guru.examples.avroposgen.services.datagenerator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.learningjournal.kafka.examples.model.LineItem;
@@ -48,7 +48,7 @@ class ProductGenerator {
         return qty.nextInt(2) + 1;
     }
 
-    LineItem getNextProduct() {
+    public LineItem getNextProduct() {
         LineItem lineItem = products[getIndex()];
         lineItem.setItemQty(getQuantity());
         lineItem.setTotalValue(lineItem.getItemPrice() * lineItem.getItemQty());

@@ -5,10 +5,12 @@ spring:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
-    properties:
-      schema.registry.url: http://localhost:8081
+      properties:
+        schema.registry.url: http://localhost:8081
+
 application:
   configs:
     invoice.count: 60
-    topic:
-      name: avro-pos-topic
+    topic.name: avro-pos-topic
+
+

@@ -1,8 +1,7 @@
-package guru.learningjournal.kafka.examples.avroposgen;
+package learningjournal.guru.examples.avroposgen;
 
-import guru.learningjournal.kafka.examples.avroposgen.services.KafkaProducerService;
-import guru.learningjournal.kafka.examples.avroposgen.services.datagenerator.InvoiceGenerator;
-import lombok.extern.log4j.Log4j2;
+import learningjournal.guru.examples.avroposgen.services.KafkaProducerService;
+import learningjournal.guru.examples.avroposgen.services.datagenerator.InvoiceGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -11,7 +10,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@Log4j2
 public class AvroPosGeneratorApplication implements ApplicationRunner {
 
 	public static void main(String[] args) {

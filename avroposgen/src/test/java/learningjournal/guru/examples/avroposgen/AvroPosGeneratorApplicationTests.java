@@ -1,4 +1,4 @@
-package guru.learningjournal.kafka.examples.avroposgen;
+package learningjournal.guru.examples.avroposgen;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
