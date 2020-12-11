@@ -1,4 +1,4 @@
-{"namespace": "guru.learningjournal.kafka.examples.model",
+{"namespace": "guru.learningjournal.examples.kafka.model",
   "type": "record",
   "name": "HadoopRecord",
   "fields": [
