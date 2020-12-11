@@ -1,6 +1,6 @@
-package guru.learningjournal.kafka.examples.kafkaproducer.services;
+package guru.learningjournal.examples.kafka.kafkaproducer.services;
 
-import guru.learningjournal.kafka.examples.kafkaproducer.model.IncomingMessage;
+import guru.learningjournal.examples.kafka.kafkaproducer.model.IncomingMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

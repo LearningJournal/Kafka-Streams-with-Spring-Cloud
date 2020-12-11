@@ -1,4 +1,4 @@
-package guru.learningjournal.kafka.examples.kafkaproducer.services;
+package guru.learningjournal.examples.kafka.kafkaproducer.services;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;

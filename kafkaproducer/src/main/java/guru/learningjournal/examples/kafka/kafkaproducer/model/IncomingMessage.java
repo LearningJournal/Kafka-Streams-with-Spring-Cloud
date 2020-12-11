@@ -1,4 +1,4 @@
-package guru.learningjournal.kafka.examples.kafkaproducer.model;
+package guru.learningjournal.examples.kafka.kafkaproducer.model;
 
 import lombok.Data;
 
