@@ -13,12 +13,12 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package guru.learningjournal.kafka.examples.jsonposgen.services.datagenerator;
+package guru.learningjournal.examples.kafka.jsonposgen.services.datagenerator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import guru.learningjournal.kafka.examples.jsonposgen.model.DeliveryAddress;
-import guru.learningjournal.kafka.examples.jsonposgen.model.LineItem;
-import guru.learningjournal.kafka.examples.jsonposgen.model.PosInvoice;
+import guru.learningjournal.examples.kafka.jsonposgen.model.LineItem;
+import guru.learningjournal.examples.kafka.jsonposgen.model.PosInvoice;
+import guru.learningjournal.examples.kafka.jsonposgen.model.DeliveryAddress;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package guru.learningjournal.kafka.examples.jsonposgen;
+package guru.learningjournal.examples.kafka.jsonposgen;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

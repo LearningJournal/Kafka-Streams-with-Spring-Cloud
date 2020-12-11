@@ -1,5 +1,5 @@
 
-package guru.learningjournal.kafka.examples.jsonposgen.model;
+package guru.learningjournal.examples.kafka.jsonposgen.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;

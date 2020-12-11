@@ -1,6 +1,6 @@
-package guru.learningjournal.kafka.examples.jsonposgen.services;
+package guru.learningjournal.examples.kafka.jsonposgen.services;
 
-import guru.learningjournal.kafka.examples.jsonposgen.model.PosInvoice;
+import guru.learningjournal.examples.kafka.jsonposgen.model.PosInvoice;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
