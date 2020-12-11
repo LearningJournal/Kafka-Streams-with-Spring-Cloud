@@ -1,7 +1,7 @@
-package guru.learningjournal.examples.avroposgen;
+package guru.learningjournal.examples.kafka.avroposgen;
 
-import guru.learningjournal.examples.avroposgen.services.datagenerator.InvoiceGenerator;
-import guru.learningjournal.examples.avroposgen.services.KafkaProducerService;
+import guru.learningjournal.examples.kafka.avroposgen.services.datagenerator.InvoiceGenerator;
+import guru.learningjournal.examples.kafka.avroposgen.services.KafkaProducerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;

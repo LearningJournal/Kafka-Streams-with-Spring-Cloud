@@ -1,4 +1,4 @@
-package guru.learningjournal.examples.avroposgen.services;
+package guru.learningjournal.examples.kafka.avroposgen.services;
 
 import guru.learningjournal.kafka.examples.model.PosInvoice;
 import lombok.extern.log4j.Log4j2;
