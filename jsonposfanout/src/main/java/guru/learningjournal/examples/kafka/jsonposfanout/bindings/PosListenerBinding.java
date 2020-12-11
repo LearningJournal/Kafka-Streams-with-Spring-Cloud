@@ -1,7 +1,7 @@
-package guru.learningjournal.kafka.examples.jsonposfanout.bindings;
+package guru.learningjournal.examples.kafka.jsonposfanout.bindings;
 
 
-import guru.learningjournal.kafka.examples.jsonposfanout.model.PosInvoice;
+import guru.learningjournal.examples.kafka.jsonposfanout.model.PosInvoice;
 import guru.learningjournal.kafka.examples.model.HadoopRecord;
 import guru.learningjournal.kafka.examples.model.Notification;
 import org.apache.kafka.streams.kstream.KStream;

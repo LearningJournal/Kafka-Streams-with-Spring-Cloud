@@ -1,7 +1,7 @@
-package guru.learningjournal.kafka.examples.jsonposfanout.services;
+package guru.learningjournal.examples.kafka.jsonposfanout.services;
 
-import guru.learningjournal.kafka.examples.jsonposfanout.model.LineItem;
-import guru.learningjournal.kafka.examples.jsonposfanout.model.PosInvoice;
+import guru.learningjournal.examples.kafka.jsonposfanout.model.LineItem;
+import guru.learningjournal.examples.kafka.jsonposfanout.model.PosInvoice;
 import guru.learningjournal.kafka.examples.model.HadoopRecord;
 import guru.learningjournal.kafka.examples.model.Notification;
 import org.springframework.stereotype.Service;

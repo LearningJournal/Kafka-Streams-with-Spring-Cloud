@@ -1,4 +1,4 @@
-package guru.learningjournal.kafka.examples.jsonposfanout;
+package guru.learningjournal.examples.kafka.jsonposfanout;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
