@@ -16,9 +16,9 @@
 package guru.learningjournal.examples.kafka.avroposgen.services.datagenerator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import guru.learningjournal.kafka.examples.model.DeliveryAddress;
-import guru.learningjournal.kafka.examples.model.LineItem;
-import guru.learningjournal.kafka.examples.model.PosInvoice;
+import guru.learningjournal.examples.kafka.model.DeliveryAddress;
+import guru.learningjournal.examples.kafka.model.LineItem;
+import guru.learningjournal.examples.kafka.model.PosInvoice;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

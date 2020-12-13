@@ -16,7 +16,7 @@
 package guru.learningjournal.examples.kafka.avroposgen.services.datagenerator;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import guru.learningjournal.kafka.examples.model.DeliveryAddress;
+import guru.learningjournal.examples.kafka.model.DeliveryAddress;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
