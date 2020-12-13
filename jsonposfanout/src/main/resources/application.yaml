@@ -17,15 +17,9 @@ spring:
             configuration:
                 schema.registry.url: http://localhost:8081
           bindings:
-            notification-input-channel:
-              consumer:
-                applicationId: pos-fanout-notification-processor
             notification-output-channel:
               producer:
                 valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
-            hadoop-input-channel:
-              consumer:
-                applicationId: pos-fanout-hadoop-processor
             hadoop-output-channel:
               producer:
                 valueSerde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
