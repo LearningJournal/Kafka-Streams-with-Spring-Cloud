@@ -1,15 +1,14 @@
 package guru.learningjournal.examples.kafka.xmlbranching.services;
 
 import guru.learningjournal.examples.kafka.model.Order;
+import guru.learningjournal.examples.kafka.xmlbranching.Configs.AppSerdes;
 import guru.learningjournal.examples.kafka.xmlbranching.bindings.OrderListenerBinding;
 import guru.learningjournal.examples.kafka.xmlbranching.model.OrderEnvelop;
 import lombok.extern.log4j.Log4j2;
-import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.Predicate;
 import org.apache.kafka.streams.kstream.Produced;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
@@ -59,7 +58,8 @@ public class OrderListenerService {
         });
 
         orderEnvelopKStream.filter((k, v) -> !k.equalsIgnoreCase("Parsed"))
-                .to(ERROR_TOPIC);
+                .to(ERROR_TOPIC, Produced.with(AppSerdes.String(), AppSerdes.OrderEnvelop()));
+
 
         KStream<String, Order> validOrders = orderEnvelopKStream
                 .filter((k, v) -> k.equalsIgnoreCase("Parsed"))
