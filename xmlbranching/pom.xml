@@ -53,6 +53,12 @@
 			<version>1.1.1</version>
 		</dependency>
 		<dependency>
+			<groupId>io.confluent</groupId>
+			<artifactId>kafka-streams-json-schema-serde</artifactId>
+			<version>6.0.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
@@ -113,7 +119,7 @@
 					<sources>
 						<source>${project.basedir}/src/main/resources/schema</source>
 					</sources>
-					<packageName>guru.learningjournal.examples.kafka.xmlbranching</packageName>
+					<packageName>guru.learningjournal.examples.kafka.model</packageName>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -124,6 +130,10 @@
 			<id>spring-milestones</id>
 			<name>Spring Milestones</name>
 			<url>https://repo.spring.io/milestone</url>
+		</repository>
+		<repository>
+			<id>confluent</id>
+			<url>https://packages.confluent.io/maven/</url>
 		</repository>
 	</repositories>
 
