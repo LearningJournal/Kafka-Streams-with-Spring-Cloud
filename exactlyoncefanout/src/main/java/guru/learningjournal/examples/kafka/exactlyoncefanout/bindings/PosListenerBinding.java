@@ -8,6 +8,6 @@ import org.springframework.cloud.stream.annotation.Input;
 public interface PosListenerBinding {
 
     @Input("pos-input-channel")
-    KStream<String, PosInvoice> notificationInputStream();
+    KStream<String, PosInvoice> posInputStream();
 
 }
