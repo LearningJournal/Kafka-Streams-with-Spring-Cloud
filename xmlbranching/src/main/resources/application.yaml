@@ -15,11 +15,6 @@ spring:
             configuration:
               schema.registry.url: http://localhost:8081
               processing.guarantee: exactly_once
-#              default:
-#                key:
-#                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-#                value:
-#                  serde: io.confluent.kafka.streams.serdes.json.KafkaJsonSchemaSerde
           bindings:
             india-orders-channel:
               producer:

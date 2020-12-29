@@ -7,6 +7,7 @@ import lombok.Data;
 public class OrderEnvelop {
     String xmlOrderKey;
     String xmlOrderValue;
-    String orderStatus;
+
+    String orderTag;
     Order validOrder;
 }

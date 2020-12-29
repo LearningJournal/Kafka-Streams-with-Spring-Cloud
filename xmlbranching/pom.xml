@@ -52,6 +52,7 @@
 			<artifactId>activation</artifactId>
 			<version>1.1.1</version>
 		</dependency>
+
 		<dependency>
 			<groupId>io.confluent</groupId>
 			<artifactId>kafka-streams-json-schema-serde</artifactId>

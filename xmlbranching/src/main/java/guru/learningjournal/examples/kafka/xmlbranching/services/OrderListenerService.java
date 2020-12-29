@@ -1,6 +1,7 @@
 package guru.learningjournal.examples.kafka.xmlbranching.services;
 
 import guru.learningjournal.examples.kafka.model.Order;
+import guru.learningjournal.examples.kafka.xmlbranching.Configs.AppConstants;
 import guru.learningjournal.examples.kafka.xmlbranching.Configs.AppSerdes;
 import guru.learningjournal.examples.kafka.xmlbranching.bindings.OrderListenerBinding;
 import guru.learningjournal.examples.kafka.xmlbranching.model.OrderEnvelop;
@@ -41,28 +42,27 @@ public class OrderListenerService {
             try {
                 JAXBContext jaxbContext = JAXBContext.newInstance(Order.class);
                 Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
                 orderEnvelop.setValidOrder((Order) jaxbUnmarshaller.unmarshal(new StringReader(value)));
-                orderEnvelop.setOrderStatus("Parsed");
+                orderEnvelop.setOrderTag(AppConstants.VALID_ORDER);
+
+                if(orderEnvelop.getValidOrder().getShipTo().getCity().isEmpty()){
+                    log.error("Missing destination City");
+                    orderEnvelop.setOrderTag(AppConstants.ADDRESS_ERROR);
+                }
+
             } catch (JAXBException e) {
                 log.error("Failed to Unmarshal the incoming XML");
-                orderEnvelop.setOrderStatus("ParseError");
+                orderEnvelop.setOrderTag(AppConstants.PARSE_ERROR);
             }
-
-            if (orderEnvelop.getOrderStatus().equalsIgnoreCase("Parsed") &&
-                    orderEnvelop.getValidOrder().getShipTo().getCity().isEmpty()) {
-                log.error("Missing destination City");
-                orderEnvelop.setOrderStatus("AddressError");
-            }
-
-            return KeyValue.pair(orderEnvelop.getOrderStatus(), orderEnvelop);
+            return KeyValue.pair(orderEnvelop.getOrderTag(), orderEnvelop);
         });
 
-        orderEnvelopKStream.filter((k, v) -> !k.equalsIgnoreCase("Parsed"))
+        orderEnvelopKStream.filter((k, v) -> !k.equalsIgnoreCase(AppConstants.VALID_ORDER))
                 .to(ERROR_TOPIC, Produced.with(AppSerdes.String(), AppSerdes.OrderEnvelop()));
 
-
         KStream<String, Order> validOrders = orderEnvelopKStream
-                .filter((k, v) -> k.equalsIgnoreCase("Parsed"))
+                .filter((k, v) -> k.equalsIgnoreCase(AppConstants.VALID_ORDER))
                 .map((k, v) -> KeyValue.pair(v.getValidOrder().getOrderId(), v.getValidOrder()));
 
         validOrders.foreach((k, v) -> log.info(String.format("Valid Order with ID: %s", v.getOrderId())));
