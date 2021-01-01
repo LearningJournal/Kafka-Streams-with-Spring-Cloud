@@ -22,9 +22,10 @@ public class EmployeeStreamListener {
 
         input.peek((k, v) -> log.info("Key: {}, Value:{}", k, v))
                 .groupBy((k, v) -> v.getDepartment())
-                .aggregate(() -> recordBuilder.init(),
+                .aggregate(
+                        () -> recordBuilder.init(),
                         (k, v, aggV) -> recordBuilder.aggregate(v, aggV)
                 ).toStream()
-                .foreach((k, v) -> System.out.println("Key = " + k + " Value = " + v.toString()));
+                .foreach((k, v) -> log.info("Key = " + k + " Value = " + v.toString()));
     }
 }
