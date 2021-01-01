@@ -1,0 +1,9 @@
+{"id": "101", "name": "Prashant", "department": "engineering", "salary": 5000}
+{"id": "102", "name": "John", "department": "accounts", "salary": 8000}
+{"id": "103", "name": "Abdul", "department": "engineering", "salary": 3000}
+{"id": "104", "name": "Melinda", "department": "support", "salary": 7000}
+{"id": "105", "name": "Jimmy", "department": "support", "salary": 6000}
+
+
+{"id": "101", "name": "Prashant", "department": "support", "salary": 5000}
+{"id": "104", "name": "Melinda", "department": "engineering", "salary": 7000}

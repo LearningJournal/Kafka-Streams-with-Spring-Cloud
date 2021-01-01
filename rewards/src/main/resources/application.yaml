@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        invoice-input-channel:
+          destination: avro-pos-topic
+        notification-output-channel:
+          destination: loyalty-topic
+      kafka:
+        streams:
+          binder:
+            brokers:  localhost:9092
+            configuration:
+              schema.registry.url: http://localhost:8081
+              commit.interval.ms: 10000
+              state.dir: state-store
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde
