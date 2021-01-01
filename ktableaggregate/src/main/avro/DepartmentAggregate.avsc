@@ -1,0 +1,10 @@
+{
+  "namespace": "guru.learningjournal.examples.kafka.model",
+  "type": "record",
+  "name": "DepartmentAggregate",
+  "fields": [
+    {"name": "total_salary","type": ["null","int"]},
+    {"name": "employee_count","type": ["null","int"]},
+    {"name": "avg_salary","type": ["null","double"]}
+  ]
+}

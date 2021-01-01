@@ -1,0 +1,11 @@
+{
+  "namespace": "guru.learningjournal.examples.kafka.model",
+  "type": "record",
+  "name": "Employee",
+  "fields": [
+    {"name": "id","type": ["null","string"]},
+    {"name": "name","type": ["null","string"]},
+    {"name": "department","type": ["null","string"]},
+    {"name": "salary","type": ["null","int"]}
+  ]
+}
