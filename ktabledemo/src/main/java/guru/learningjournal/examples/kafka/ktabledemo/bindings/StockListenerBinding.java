@@ -8,6 +8,4 @@ public interface StockListenerBinding {
 
     @Input("stock-input-channel")
     KTable<String, String> stockInputStream();
-
-
 }

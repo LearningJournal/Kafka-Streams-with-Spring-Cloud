@@ -7,7 +7,6 @@ spring:
       kafka:
         streams:
           binder:
-            applicationId: ktabledemo
             brokers:  localhost:9092
             configuration:
               commit.interval.ms: 10000

@@ -2,7 +2,6 @@ package guru.learningjournal.examples.kafka.ktabledemo.services;
 
 import guru.learningjournal.examples.kafka.ktabledemo.bindings.StockListenerBinding;
 import lombok.extern.log4j.Log4j2;
-import org.apache.kafka.streams.kstream.KStream;
 import org.apache.kafka.streams.kstream.KTable;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
