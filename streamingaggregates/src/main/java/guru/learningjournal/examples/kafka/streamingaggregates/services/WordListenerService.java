@@ -18,11 +18,13 @@ public class WordListenerService {
     @StreamListener("words-input-channel")
     public void process(KStream<String, String> input) {
 
-        input.flatMapValues(value -> Arrays.asList(value.toLowerCase().split(" ")))
-                .groupBy((key, value) -> value)
+        KStream<String, String> wordStream = input
+                .flatMapValues(value -> Arrays.asList(value.toLowerCase().split(" ")));
+
+        wordStream.groupBy((key, value) -> value)
                 .count()
                 .toStream()
-                .peek((k, v) -> log.info("Word: {} Count: {}",k,v));
+                .peek((k, v) -> log.info("Word: {} Count: {}", k, v));
     }
 
 }
