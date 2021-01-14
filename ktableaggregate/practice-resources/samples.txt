@@ -7,3 +7,5 @@
 
 {"id": "101", "name": "Prashant", "department": "support", "salary": 5000}
 {"id": "104", "name": "Melinda", "department": "engineering", "salary": 7000}
+
+{"id": "101", "name": "Prashant", "department": "support", "salary": 6000}
