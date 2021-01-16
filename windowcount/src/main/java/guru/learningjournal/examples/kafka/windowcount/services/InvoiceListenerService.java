@@ -28,16 +28,16 @@ public class InvoiceListenerService {
                 .windowedBy(TimeWindows.of(Duration.ofMinutes(5)))
                 .count()
                 .toStream()
-                .foreach((kWindowed, v) -> log.info(
-                        "StoreID: " + kWindowed.key() +
+                .foreach((k, v) -> log.info(
+                        "StoreID: " + k.key() +
                                 " Window start: " +
-                                Instant.ofEpochMilli(kWindowed.window().start())
+                                Instant.ofEpochMilli(k.window().start())
                                         .atOffset(ZoneOffset.UTC) +
                                 " Window end: " +
-                                Instant.ofEpochMilli(kWindowed.window().end())
+                                Instant.ofEpochMilli(k.window().end())
                                         .atOffset(ZoneOffset.UTC) +
                                 " Count: " + v +
-                                " Window#: " + kWindowed.window().hashCode()
+                                " Window#: " + k.window().hashCode()
                 ));
 
     }
