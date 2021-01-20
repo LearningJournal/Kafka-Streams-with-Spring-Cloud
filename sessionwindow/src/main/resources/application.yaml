@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        click-input-channel:
+          destination: user-clicks-topic
+      kafka:
+        streams:
+          binder:
+            brokers:  localhost:9092
+            configuration:
+              commit.interval.ms: 10000
+              state.dir: state-store
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+          bindings:
+            click-input-channel:
+              consumer:
+                timestampExtractorBeanName: userClickTimeExtractor
+
