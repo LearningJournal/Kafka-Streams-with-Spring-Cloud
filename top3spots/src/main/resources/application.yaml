@@ -1,0 +1,21 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        inventories-channel:
+          destination: active-inventories
+        clicks-channel:
+          destination: ad-clicks
+      kafka:
+        streams:
+          binder:
+            brokers:  localhost:9092
+            configuration:
+              commit.interval.ms: 10000
+              state.dir: state-store
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+
