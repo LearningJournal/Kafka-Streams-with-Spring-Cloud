@@ -1,0 +1,15 @@
+spring.cloud.stream:
+  function:
+    definition: process
+    bindings:
+      process-in-0: input-topic
+      process-out-0: output-topic
+  kafka:
+    streams:
+      binder:
+        brokers:  localhost:9092
+        configuration:
+          commit.interval.ms: 100
+          default:
+            key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+            value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde

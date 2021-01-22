@@ -9,13 +9,13 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>guru.learningjournal.examples.kafka</groupId>
-	<artifactId>top3spots</artifactId>
+	<artifactId>streamingtest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Top3 Spots</name>
-	<description>Top3 Spots Demo by Learning Journal</description>
+	<name>Streaming Test</name>
+	<description>Streaming Test Demo by Learning Journal</description>
 	<properties>
 		<java.version>11</java.version>
-		<spring-cloud.version>Hoxton.SR9</spring-cloud.version>
+		<spring-cloud.version>2020.0.0</spring-cloud.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -36,21 +36,29 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-stream</artifactId>
-			<scope>test</scope>
-			<classifier>test-binder</classifier>
-			<type>test-jar</type>
-		</dependency>
-	</dependencies>
 
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>kafka-streams-test-utils</artifactId>
+			<version>${kafka.version}</version>
+			<scope>test</scope>
+		</dependency>
+    </dependencies>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
