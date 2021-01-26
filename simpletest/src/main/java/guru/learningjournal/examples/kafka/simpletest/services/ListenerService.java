@@ -16,7 +16,9 @@ public class ListenerService {
     @StreamListener("process-in-0")
     @SendTo("process-out-0")
     public KStream<String, String> process(KStream<String, String> input) {
+
         input.foreach((k,v) -> log.info("Received Input: {}",v));
         return input.mapValues(v -> v.toUpperCase());
+
     }
 }

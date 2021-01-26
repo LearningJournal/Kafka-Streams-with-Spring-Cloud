@@ -30,27 +30,24 @@ public class SimpleTestApplicationTests {
 
 
     @ClassRule
-    public static EmbeddedKafkaRule embeddedKafkaRule = new EmbeddedKafkaRule(1, true, "input-topic", "output-topic");
-
+    public static EmbeddedKafkaRule embeddedKafkaRule = new EmbeddedKafkaRule(1, true, 1,
+            "input-topic", "output-topic");
     private static EmbeddedKafkaBroker embeddedKafka = embeddedKafkaRule.getEmbeddedKafka();
-
-    private static Consumer<String, String> consumer;
 
     @Autowired
     StreamsBuilderFactoryBean streamsBuilderFactoryBean;
 
-    @Before
-    public void before() {
-        streamsBuilderFactoryBean.setCloseTimeout(0);
-    }
+    private static Consumer<String, String> consumer;
 
     @BeforeClass
     public static void setUp() {
+
         Map<String, Object> consumerProps = KafkaTestUtils.consumerProps("group", "false", embeddedKafka);
         consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         DefaultKafkaConsumerFactory<String, String> cf = new DefaultKafkaConsumerFactory<>(consumerProps);
         consumer = cf.createConsumer();
         embeddedKafka.consumeFromAnEmbeddedTopic(consumer, "output-topic");
+
         System.setProperty("spring.cloud.stream.kafka.streams.binder.brokers", embeddedKafka.getBrokersAsString());
     }
 
@@ -62,23 +59,29 @@ public class SimpleTestApplicationTests {
 
     @Test
     public void SimpleProcessorApplicationTest() {
+        Set<String> actualResultSet = new HashSet<>();
+        Set<String> expectedResultSet = new HashSet<>();
+        expectedResultSet.add("HELLO1");
+        expectedResultSet.add("HELLO2");
+
         Map<String, Object> senderProps = KafkaTestUtils.producerProps(embeddedKafka);
         DefaultKafkaProducerFactory<Integer, String> pf = new DefaultKafkaProducerFactory<>(senderProps);
         try {
             KafkaTemplate<Integer, String> template = new KafkaTemplate<>(pf, true);
+
             template.setDefaultTopic("input-topic");
-            template.sendDefault("hello");
-            ConsumerRecords<String, String> cr = KafkaTestUtils.getRecords(consumer);
 
-            Set<String> expectedResultSet = new HashSet<>();
-            expectedResultSet.add("HELLO");
+            template.sendDefault("hello1");
+            template.sendDefault("hello2");
 
-            Set<String> resultSet = new HashSet<>();
-            cr.iterator().forEachRemaining(r -> resultSet.add(r.value()));
+            int receivedAll = 0;
+            while(receivedAll<2) {
+                ConsumerRecords<String, String> cr = KafkaTestUtils.getRecords(consumer);
+                receivedAll = receivedAll + cr.count();
+                cr.iterator().forEachRemaining(r -> actualResultSet.add(r.value()));
+            }
 
-            log.info("Result Set: {}", resultSet);
-            log.info("Are both same? {} ", resultSet.equals(expectedResultSet));
-            assertThat(resultSet.equals(expectedResultSet)).isTrue();
+            assertThat(actualResultSet.equals(expectedResultSet)).isTrue();
         }
         finally {
             pf.destroy();
