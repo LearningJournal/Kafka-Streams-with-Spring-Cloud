@@ -15,9 +15,5 @@
 1003:{"InventoryID": "1003"}
 1004:{"InventoryID": "1004"}
 1004:{"InventoryID": "1004"}
-1005:{"InventoryID": "1005"}
-1006:{"InventoryID": "1006"}
-1007:{"InventoryID": "1007"}
-1008:{"InventoryID": "1008"}
-1009:{"InventoryID": "1009"}
-1010:{"InventoryID": "1010"}
+1002:{"InventoryID": "1002"}
+

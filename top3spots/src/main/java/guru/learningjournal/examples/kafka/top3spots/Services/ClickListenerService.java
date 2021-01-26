@@ -37,36 +37,36 @@ public class ClickListenerService {
                                 new JsonSerde<>(AdInventories.class)))
                 .count();
 
-        KTable<String, Top3NewsTypes> top3NewsTypesKTable =
-                clicksByNewsTypeKTable.groupBy(
-                        (k_newsType, v_clickCount) -> {
-                            ClicksByNewsType value = new ClicksByNewsType();
-                            value.setNewsType(k_newsType);
-                            value.setClicks(v_clickCount);
-                            return KeyValue.pair("top3NewsTypes", value);
-                        },
-                        Grouped.with(Serdes.String(), new JsonSerde<>(ClicksByNewsType.class))
-                ).aggregate(Top3NewsTypes::new,
-                        (k, newClickByNewsType, aggTop3NewType) -> {
-                            aggTop3NewType.add(newClickByNewsType);
-                            return aggTop3NewType;
-                        },
-                        (k, oldClickByNewsType, aggTop3NewType) -> {
-                            aggTop3NewType.remove(oldClickByNewsType);
-                            return aggTop3NewType;
-                        },
-                        Materialized.<String, Top3NewsTypes, KeyValueStore<Bytes, byte[]>>
-                                as("top3-clicks")
-                                .withKeySerde(Serdes.String())
-                                .withValueSerde(new JsonSerde<>(Top3NewsTypes.class)));
-
-        top3NewsTypesKTable.toStream().foreach((k, v) -> {
-            try {
-                log.info("k=" + k + " v= " + v.getTop3Sorted());
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        });
+        clicksByNewsTypeKTable.groupBy(
+                (k, v) -> {
+                    ClicksByNewsType value = new ClicksByNewsType();
+                    value.setNewsType(k);
+                    value.setClicks(v);
+                    return KeyValue.pair("top3NewsTypes", value);
+                },
+                Grouped.with(Serdes.String(), new JsonSerde<>(ClicksByNewsType.class))
+        ).aggregate(
+                () -> new Top3NewsTypes(),
+                (k, v, aggV) -> {
+                    aggV.add(v);
+                    return aggV;
+                },
+                (k, v, aggV) -> {
+                    aggV.remove(v);
+                    return aggV;
+                },
+                Materialized.<String, Top3NewsTypes, KeyValueStore<Bytes, byte[]>>
+                        as("top3-clicks")
+                        .withKeySerde(Serdes.String())
+                        .withValueSerde(new JsonSerde<>(Top3NewsTypes.class)))
+                .toStream().foreach(
+                (k, v) -> {
+                    try {
+                        log.info("k=" + k + " v= " + v.getTop3Sorted());
+                    } catch (JsonProcessingException e) {
+                        e.printStackTrace();
+                    }
+                });
 
     }
 }
