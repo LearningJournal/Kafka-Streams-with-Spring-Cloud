@@ -15,14 +15,17 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
 import org.springframework.kafka.test.utils.KafkaTestUtils;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.kafka.test.utils.KafkaTestUtils.*;
 
 @Log4j2
 @RunWith(SpringRunner.class)
+@DirtiesContext
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.NONE,
         properties = {"server.port=0"})
@@ -42,7 +45,7 @@ public class SimpleTestApplicationTests {
     @BeforeClass
     public static void setUp() {
 
-        Map<String, Object> consumerProps = KafkaTestUtils.consumerProps("group", "false", embeddedKafka);
+        Map<String, Object> consumerProps = consumerProps("group", "false", embeddedKafka);
         consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         DefaultKafkaConsumerFactory<String, String> cf = new DefaultKafkaConsumerFactory<>(consumerProps);
         consumer = cf.createConsumer();
@@ -64,7 +67,7 @@ public class SimpleTestApplicationTests {
         expectedResultSet.add("HELLO1");
         expectedResultSet.add("HELLO2");
 
-        Map<String, Object> senderProps = KafkaTestUtils.producerProps(embeddedKafka);
+        Map<String, Object> senderProps = producerProps(embeddedKafka);
         DefaultKafkaProducerFactory<Integer, String> pf = new DefaultKafkaProducerFactory<>(senderProps);
         try {
             KafkaTemplate<Integer, String> template = new KafkaTemplate<>(pf, true);
@@ -76,7 +79,7 @@ public class SimpleTestApplicationTests {
 
             int receivedAll = 0;
             while(receivedAll<2) {
-                ConsumerRecords<String, String> cr = KafkaTestUtils.getRecords(consumer);
+                ConsumerRecords<String, String> cr = getRecords(consumer);
                 receivedAll = receivedAll + cr.count();
                 cr.iterator().forEachRemaining(r -> actualResultSet.add(r.value()));
             }
