@@ -1,6 +1,5 @@
 package guru.learningjournal.examples.kafka.streamingtest.configs;
 
-import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -13,9 +12,9 @@ import java.util.function.Function;
 public class ListenerService {
 
     @Bean
-    public Function<KStream<Bytes, String>, KStream<Bytes, String>> process() {
+    public Function<KStream<String, String>, KStream<String, String>> process() {
 
-        return v -> v.mapValues(i -> i.toUpperCase());
+        return input -> input.mapValues(i -> i.toUpperCase());
 
     }
 }

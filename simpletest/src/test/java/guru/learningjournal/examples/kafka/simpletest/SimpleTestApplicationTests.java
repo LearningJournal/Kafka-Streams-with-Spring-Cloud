@@ -72,7 +72,6 @@ public class SimpleTestApplicationTests {
         DefaultKafkaProducerFactory<Integer, String> pf = new DefaultKafkaProducerFactory<>(senderProps);
         try {
             KafkaTemplate<Integer, String> template = new KafkaTemplate<>(pf, true);
-
             template.setDefaultTopic("input-topic");
 
             template.sendDefault("hello1");

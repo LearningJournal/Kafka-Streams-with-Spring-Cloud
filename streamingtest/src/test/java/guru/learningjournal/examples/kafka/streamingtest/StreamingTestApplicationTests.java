@@ -14,7 +14,6 @@ import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.rule.EmbeddedKafkaRule;
-import org.springframework.kafka.test.utils.KafkaTestUtils;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.HashSet;
@@ -22,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.kafka.test.utils.KafkaTestUtils.*;
 
 @Log4j2
 @RunWith(SpringRunner.class)
@@ -31,8 +31,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StreamingTestApplicationTests {
 
 	@ClassRule
-	public static EmbeddedKafkaRule embeddedKafkaRule = new EmbeddedKafkaRule(1, true, "input-topic", "output-topic");
-
+	public static EmbeddedKafkaRule embeddedKafkaRule = new EmbeddedKafkaRule(1, true, 1,
+			"input-topic", "output-topic");
 	private static EmbeddedKafkaBroker embeddedKafka = embeddedKafkaRule.getEmbeddedKafka();
 
 	private static Consumer<String, String> consumer;
@@ -47,39 +47,43 @@ public class StreamingTestApplicationTests {
 
 	@BeforeClass
 	public static void setUp() {
-		Map<String, Object> consumerProps = KafkaTestUtils.consumerProps("group", "false", embeddedKafka);
+		Map<String, Object> consumerProps = consumerProps("group", "false", embeddedKafka);
 		consumerProps.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 		DefaultKafkaConsumerFactory<String, String> cf = new DefaultKafkaConsumerFactory<>(consumerProps);
 		consumer = cf.createConsumer();
 		embeddedKafka.consumeFromAnEmbeddedTopic(consumer, "output-topic");
-		System.setProperty("spring.cloud.stream.kafka.streams.binder.brokers", embeddedKafka.getBrokersAsString());
+
 	}
 
 	@AfterClass
 	public static void tearDown() {
 		consumer.close();
-		System.clearProperty("spring.cloud.stream.kafka.streams.binder.brokers");
 	}
 
 	@Test
 	public void SimpleProcessorApplicationTest() {
-		Map<String, Object> senderProps = KafkaTestUtils.producerProps(embeddedKafka);
+		Set<String> actualResultSet = new HashSet<>();
+		Set<String> expectedResultSet = new HashSet<>();
+		expectedResultSet.add("HELLO1");
+		expectedResultSet.add("HELLO2");
+
+		Map<String, Object> senderProps = producerProps(embeddedKafka);
 		DefaultKafkaProducerFactory<Integer, String> pf = new DefaultKafkaProducerFactory<>(senderProps);
 		try {
 			KafkaTemplate<Integer, String> template = new KafkaTemplate<>(pf, true);
 			template.setDefaultTopic("input-topic");
-			template.sendDefault("hello");
-			ConsumerRecords<String, String> cr = KafkaTestUtils.getRecords(consumer);
 
-			Set<String> expectedResultSet = new HashSet<>();
-			expectedResultSet.add("HELLO");
+			template.sendDefault("hello1");
+			template.sendDefault("hello2");
 
-			Set<String> resultSet = new HashSet<>();
-			cr.iterator().forEachRemaining(r -> resultSet.add(r.value()));
+			int receivedAll = 0;
+			while(receivedAll<2) {
+				ConsumerRecords<String, String> cr = getRecords(consumer);
+				receivedAll = receivedAll + cr.count();
+				cr.iterator().forEachRemaining(r -> actualResultSet.add(r.value()));
+			}
 
-			log.info("Result Set: {}", resultSet);
-			log.info("Are both same? {} ", resultSet.equals(expectedResultSet));
-			assertThat(resultSet.equals(expectedResultSet)).isTrue();
+			assertThat(actualResultSet.equals(expectedResultSet)).isTrue();
 		}
 		finally {
 			pf.destroy();

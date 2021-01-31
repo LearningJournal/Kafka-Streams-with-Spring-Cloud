@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        process-in-0:
+          destination: input-topic
+        process-out-0:
+          destination: output-topic
+      kafka:
+        streams:
+          binder:
+            brokers:  ${spring.embedded.kafka.brokers}
+            configuration:
+              commit.interval.ms: 100
+              default:
+                key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
